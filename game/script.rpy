@@ -1,5 +1,5 @@
 # TO DO LOOK UP HOW TO SEPERATE SCRIPT INTO MULTIPLE FILES
-You can place the script of your game in this file.
+# You can place the script of your game in this file.
 
 # Declare images below this line, using the image statement.
 # eg. image eileen happy = "eileen_happy.png"
@@ -44,9 +44,11 @@ label start:
     hide serena ouch with moveoutright
     
     scene black with fade
-    $ renpy.pause(2.0)
-    ser "{cps=0}Oof!{/cps}" 
- # {cps=some number} changes text speed. cps of zero is infinite 
+    # start with a 1-second pause
+    $ renpy.pause(1.0)
+    # wait for a second after the text appears. if user doesn't click to advance by then, move on. otherwise the punch doesnt make sense
+    ser "{cps=0}Oof!{/cps}{w=1.0}{nw}"
+    # {cps=some number} changes text speed. cps of zero instantly displays the text
     $ renpy.play('sfx/punch.wav')
     with hpunch
     serThought "Warm and soft?... What did I run into?"
