@@ -28,7 +28,7 @@ init -1 python hide:
     # These control the name and version of the game, that are reported
     # with tracebacks and other debugging logs.
     config.name = "Affection's Melody"
-    config.version = "v0.1.1"
+    config.version = "v0.2.0"
 
     #########################################
     # Themes
@@ -51,7 +51,7 @@ init -1 python hide:
         widget_hover = "#c83232",
 
         ## The color of the text in a widget.
-        widget_text = "#FF00CC",
+        widget_text = "#ffe9fb", # "#FF00CC",
 
         ## The color of the text in a selected widget. (For
         ## example, the current value of a preference.)
@@ -125,7 +125,7 @@ init -1 python hide:
     style.say_label.ypos = -3 #-10
     style.say_label.font = "font/KINKIE_.TTF" # "font/lucon.ttf"
     style.say_label.size = 32 #20
-    style.say_label.color = "#F4D7EE" # "#FF00CC"
+    style.say_label.color = "#ffe9fb" # "#F4D7EE" # "#FF00CC"
     style.say_label.bold = False
     
     #########################################
@@ -159,7 +159,7 @@ init -1 python hide:
 
     style.default.size = 18
     
-    style.default.color = "#F4D7EE"
+    style.default.color = "#ffe9fb" # "#F4D7EE"
     
     ## Note that these only change the size of some of the text. Other
     ## buttons have their own styles.
@@ -345,7 +345,7 @@ init python:
     ## The name that's used for directories and archive files. For example, if
     ## this is 'mygame-1.0', the windows distribution will be in the
     ## directory 'mygame-1.0-win', in the 'mygame-1.0-win.zip' file.
-    build.directory_name = "Affection's Melody-v0.1.1"
+    build.directory_name = "Affection'sMelody-v0.2.0"
     
     ## The name that's uses for executables - the program that users will run
     ## to start the game. For example, if this is 'mygame', then on Windows,
