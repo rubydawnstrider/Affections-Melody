@@ -276,6 +276,27 @@ init -2:
 # Screen that's included in other screens to display the game menu
 # navigation and background.
 # http://www.renpy.org/doc/html/screen_special.html#navigation
+screen navigation_options:
+    imagebutton auto "gui/nav_main_%s.png" xpos 617 ypos 21 focus_mask True action MainMenu() hovered [ Play ("test_one", "sfx/click.wav") ] at nav_eff
+    imagebutton auto "gui/nav_save_%s.png" xpos 617 ypos 85 focus_mask True action ShowMenu('save') hovered [ Play ("test_two", "sfx/click.wav") ] at nav_eff
+    imagebutton auto "gui/nav_load_%s.png" xpos 617 ypos 149 focus_mask True action ShowMenu('load') hovered [ Play ("test_three", "sfx/click.wav") ] at nav_eff
+    imagebutton auto "gui/nav_return_%s.png" xpos 617 ypos 212 focus_mask True action Return() hovered [ Play ("test_four", "sfx/click.wav") ] at nav_eff
+    imagebutton auto "gui/nav_quit_%s.png" xpos 617 ypos 276 focus_mask True action Quit() hovered [ Play ("test_five", "sfx/click.wav") ] at nav_eff
+# The code below defines the ATL transform effects for the buttons on the game menu. These effects are triggered when we hover the mouse over them (hover and selected_hover).
+# Effects that are triggered by idle and selected_idle events (when we stop hovering the mouse over them) ensure that the buttons are moved back to the initial state.
+init -2:
+    transform nav_eff:
+        on idle:
+            easein 0.3 xpos 617
+        on selected_idle:
+            easein 0.3 xpos 617
+        on hover:
+            easein 0.2 xpos 637
+            easein 0.25 xpos 587
+        on selected_hover:
+            easein 0.2 xpos 637
+            easein 0.25 xpos 587
+
 screen navigation:
 
     # The background of the game menu.
@@ -404,127 +425,65 @@ init -2 python:
 #
 # Screen that allows the user to change the preferences.
 # http://www.renpy.org/doc/html/screen_special.html#prefereces
-    
 screen preferences:
-
-    tag menu
-
-    # Include the navigation.
-    use navigation
-
-    # Put the navigation columns in a three-wide grid.
-    grid 3 1:
-        style_group "prefs"
-        xfill True
-
-        # The left column.
-        vbox:
-            frame:
-                style_group "pref"
-                has vbox
-
-                label _("Display")
-                textbutton _("Window") action Preference("display", "window")
-                textbutton _("Fullscreen") action Preference("display", "fullscreen")
-
-            frame:
-                style_group "pref"
-                has vbox
-
-                label _("Transitions")
-                textbutton _("All") action Preference("transitions", "all")
-                textbutton _("None") action Preference("transitions", "none")
-
-            frame:
-                style_group "pref"
-                has vbox
-
-                label _("Text Speed")
-                bar value Preference("text speed")
-
-            frame:
-                style_group "pref"
-                has vbox
-
-                textbutton _("Joystick...") action Preference("joystick")
-
-
-        vbox:
-            frame:
-                style_group "pref"
-                has vbox
-
-                label _("Skip")
-                textbutton _("Seen Messages") action Preference("skip", "seen")
-                textbutton _("All Messages") action Preference("skip", "all")
-
-            frame:
-                style_group "pref"
-                has vbox
-
-                textbutton _("Begin Skipping") action Skip()
-
-            frame:
-                style_group "pref"
-                has vbox
-
-                label _("After Choices")
-                textbutton _("Stop Skipping") action Preference("after choices", "stop")
-                textbutton _("Keep Skipping") action Preference("after choices", "skip")
-
-            frame:
-                style_group "pref"
-                has vbox
-
-                label _("Auto-Forward Time")
-                bar value Preference("auto-forward time")
-
-        vbox:
-            frame:
-                style_group "pref"
-                has vbox
-
-                label _("Music Volume")
-                bar value Preference("music volume")
-
-            frame:
-                style_group "pref"
-                has vbox
-
-                label _("Sound Volume")
-                bar value Preference("sound volume")
-
-                if config.sample_sound:
-                    textbutton _("Test"):
-                        action Play("sound", config.sample_sound)
-                        style "soundtest_button"
-
-            frame:
-                style_group "pref"
-                has vbox
-
-                label _("Voice Volume")
-                bar value Preference("voice volume")
-
-                if config.sample_voice:
-                    textbutton "Test":
-                        action Play("voice", config.sample_voice)
-                        style "soundtest_button"
-
-init -2 python:
-    style.pref_frame.xfill = True
-    style.pref_frame.xmargin = 5
-    style.pref_frame.top_margin = 5
-
-    style.pref_vbox.xfill = True
-
-    style.pref_button.size_group = "pref"
-    style.pref_button.xalign = 1.0
-
-    style.pref_slider.xmaximum = 192
-    style.pref_slider.xalign = 1.0
-
-    style.soundtest_button.xalign = 1.0
+    tag menu # This ensures that any other menu screen is replaced.
+    add "gui/options_screen_ground.png" # We add the image that is shown in the background of the preferences screen.
+    # Display windowed/full screen:
+    imagebutton auto "gui/options_windowed_%s.png" xpos 30 ypos 64 focus_mask True action Preference('display', 'window') at config_eff hovered [ Play ("test_one", "sfx/click.wav") ]
+    imagebutton auto "gui/options_full_screen_%s.png" xpos 30 ypos 111 focus_mask True action Preference('display', 'fullscreen') at config_eff hovered [ Play ("test_two", "sfx/click.wav") ]
+    # Transitions on/off:
+    imagebutton auto "gui/options_show_all_%s.png" xpos 30 ypos 225 focus_mask True action Preference('transitions', 'all') at config_eff hovered [ Play ("test_four", "sfx/click.wav") ] 
+    imagebutton auto "gui/options_none_%s.png" xpos 30 ypos 272 focus_mask True action Preference('transitions', 'none') at config_eff hovered [ Play ("test_four", "sfx/click.wav") ]
+    # Skip all/seen text
+    imagebutton auto "gui/options_read_messages_%s.png" xpos 318 ypos 64 focus_mask True action Preference('skip', 'seen') at config_eff hovered [ Play ("test_one", "sfx/click.wav") ]
+    imagebutton auto "gui/options_all_messages_%s.png" xpos 318 ypos 111 focus_mask True action Preference('skip', 'all') at config_eff hovered [ Play ("test_two", "sfx/click.wav") ]
+    # Stop/continue skipping after choices
+    imagebutton auto "gui/options_keep_skipping_%s.png" xpos 318 ypos 225 focus_mask True action Preference('after choices', 'skip') at config_eff hovered [ Play ("test_two", "sfx/click.wav") ]
+    imagebutton auto "gui/options_stop_skipping_%s.png" xpos 318 ypos 272 focus_mask True action Preference('after choices', 'stop') at config_eff hovered [ Play ("test_one", "sfx/click.wav") ] 
+    # Button to begin skipping. Only active/visible if the game is started. Image config_begin_skipping_insensitive.png is used when the button is not active.
+    ## todo: need begin skipping button
+    #imagebutton auto "gui/config_begin_skipping_%s.png" xpos 420 ypos 117 focus_mask True action Preference('begin skipping') hovered [ Play ("test_one", "sfx/click.wav") ]
+    # bar sliders for volume control, text speed and auto-forward time
+    frame xpos 24 ypos 386:
+        style_group "pref"
+        has vbox
+        bar value Preference("music volume")
+    frame xpos 24 ypos 495:
+        style_group "pref"
+        has vbox
+        bar value Preference("sound volume")
+    frame xpos 311 ypos 386:
+        style_group "pref"
+        has vbox
+        bar value Preference("auto-forward time")
+    use navigation_options # We include the navigation screen (game menu)
+      
+init -2 python: 
+    # Styling for the bar sliders:
+    # Aleema's Customizing Menus tutorial: http://lemmasoft.renai.us/forums/viewtopic.php?f=51&t=9812
+    # Bar style properties documentation: http://www.renpy.org/doc/html/style.html#bar-style-properties
+    style.pref_frame.background = None
+    style.pref_slider.left_bar = "gui/options_bar_full.png"
+    style.pref_slider.right_bar = "gui/options_bar_empty.png"
+    style.pref_slider.hover_left_bar = "gui/options_bar_hover.png"
+    style.pref_slider.thumb = None
+    style.pref_slider.xmaximum = 260 # width of bar + 5
+    style.pref_slider.ymaximum = 48  # height of bar
+    
+init -2:
+    transform config_eff:
+        on idle:
+            easein 0.2 zoom 1.0
+        on selected_idle:
+            easein 0.2 zoom 1.0
+        on hover:
+            easein 0.15 zoom 1.02
+            easein 0.15 zoom 0.95
+            easein 0.15 zoom 1.0
+        on selected_hover:
+            easein 0.15 zoom 1.02
+            easein 0.15 zoom 0.95
+            easein 0.15 zoom 1.0
 
 
 ##############################################################################
