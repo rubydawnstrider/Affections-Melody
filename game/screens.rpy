@@ -104,10 +104,15 @@ init -2 python:
     style.menu_window.set_parent(style.default)
     style.menu_choice.set_parent(style.button_text)
     style.menu_choice.clear()
+    style.menu_choice.line_leading = 5
+    style.menu_choice.line_spacing = 2
+    style.menu_choice.hover_color = "#ffffff"
     style.menu_choice_button.set_parent(style.button)
     style.menu_choice_button.xminimum = int(config.screen_width * 0.75)
     style.menu_choice_button.xmaximum = int(config.screen_width * 0.75)
-
+    style.menu_choice_button.background = Frame("gui/choice_idle.png",3, 3)
+    style.menu_choice_button.hover_background = Frame("gui/choice_hover.png", 3, 3)
+    
 
 ##############################################################################
 # Input
@@ -529,40 +534,25 @@ init -2 python:
 # http://www.renpy.org/doc/html/screen_special.html#yesno-prompt
     
 screen yesno_prompt:
+    on "show" action Play("sound", "sfx/alert.wav")
+    modal True # A modal screen prevents the user from interacting with displayables below it, except for the default keymap.
+    
+    add "gui/yesno_ground.png" #"gui/yesno_menu_demo.png"
+    imagebutton auto "gui/yesno_yes_%s.png" xpos 180 ypos 393 action yes_action hover_sound "sfx/click.wav"
+    imagebutton auto "gui/yesno_no_%s.png" xpos 400 ypos 393 action no_action hover_sound "sfx/click.wav"
 
-    modal True
-
-    window:
-        style "gm_root"
-
-    frame:
-        style_group "yesno"
-
-        xfill True
-        xmargin .05
-        ypos .1
-        yanchor 0
-        ypadding .05
-        
-        has vbox:
-            xalign .5
-            yalign .5
-            spacing 30
-            
-        label _(message):
-            xalign 0.5
-
-        hbox:
-            xalign 0.5
-            spacing 100
-            
-            textbutton _("Yes") action yes_action
-            textbutton _("No") action no_action
-
-
-init -2 python:    
-    style.yesno_button.size_group = "yesno"
-    style.yesno_label_text.text_align = 0.5
+    if message == layout.ARE_YOU_SURE:
+        add "gui/yesno_are_you_sure.png"
+    elif message == layout.DELETE_SAVE:
+        add "gui/yesno_delete_save.png"
+    elif message == layout.OVERWRITE_SAVE:
+        add "gui/yesno_overwrite_save.png"
+    elif message == layout.LOADING:
+        add "gui/yesno_loading.png"
+    elif message == layout.QUIT:
+        add "gui/yesno_quit.png"
+    elif message == layout.MAIN_MENU:
+        add "gui/yesno_main_menu.png"
 
 
 ##############################################################################

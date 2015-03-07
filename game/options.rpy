@@ -28,7 +28,7 @@ init -1 python hide:
     # These control the name and version of the game, that are reported
     # with tracebacks and other debugging logs.
     config.name = "Affection's Melody"
-    config.version = "v0.1.0"
+    config.version = "v0.1.1"
 
     #########################################
     # Themes
@@ -282,29 +282,62 @@ init python:
     for fname in os.listdir(config.gamedir + '\\img\\bg'):
         if fname.endswith('.png'):
             renpy.image(fname[:-4], 'img/bg/' + fname)    
-    
-    #load serenity sprites
-    for fname in os.listdir(config.gamedir + '\\img\\serenity'):
-        if fname.endswith('.png'):
-            renpy.image(('serenity', fname[:-4]), 'img/serenity/' + fname)
 
-    #load selene sprites
-    for fname in os.listdir(config.gamedir + '\\img\\selene'):
+    #load andrea sprites
+    for fname in os.listdir(config.gamedir + '\\img\\andrea'):
         if fname.endswith('.png'):
-            renpy.image(('selene', fname[:-4]), 'img/selene/' + fname)
+            renpy.image(('andrea', fname[:-4]), 'img/andrea/' + fname)
 
     #load armane sprites
     for fname in os.listdir(config.gamedir + '\\img\\armane'):
         if fname.endswith('.png'):
             renpy.image(('armane', fname[:-4]), 'img/armane/' + fname)
 
+    #load himeko sprites
+    for fname in os.listdir(config.gamedir + '\\img\\himeko'):
+        if fname.endswith('.png'):
+            renpy.image(('himeko', fname[:-4]), 'img/himeko/' + fname)
+
+    #load mina sprites
+    for fname in os.listdir(config.gamedir + '\\img\\mina'):
+        if fname.endswith('.png'):
+            renpy.image(('mina', fname[:-4]), 'img/mina/' + fname)
+
+    #load nurse sprites
+    for fname in os.listdir(config.gamedir + '\\img\\nurse'):
+        if fname.endswith('.png'):
+            renpy.image(('nurse', fname[:-4]), 'img/nurse/' + fname)
+
+    #load selene sprites
+    for fname in os.listdir(config.gamedir + '\\img\\selene'):
+        if fname.endswith('.png'):
+            renpy.image(('selene', fname[:-4]), 'img/selene/' + fname)
+
+    #load seleneMom sprites
+    for fname in os.listdir(config.gamedir + '\\img\\seleneMom'):
+        if fname.endswith('.png'):
+            renpy.image(('seleneMom', fname[:-4]), 'img/seleneMom/' + fname)
+    
+    #load serena sprites
+    for fname in os.listdir(config.gamedir + '\\img\\serena'):
+        if fname.endswith('.png'):
+            renpy.image(('serena', fname[:-4]), 'img/serena/' + fname)
+    
+    #load serenaMom sprites
+    for fname in os.listdir(config.gamedir + '\\img\\serenaMom'):
+        if fname.endswith('.png'):
+            renpy.image(('serenaMom', fname[:-4]), 'img/serenaMom/' + fname)
+    
+    #load teacher sprites
+    for fname in os.listdir(config.gamedir + '\\img\\teacher'):
+        if fname.endswith('.png'):
+            renpy.image(('teacher', fname[:-4]), 'img/teacher/' + fname)
+
     #load trista sprites
     for fname in os.listdir(config.gamedir + '\\img\\trista'):
         if fname.endswith('.png'):
             renpy.image(('trista', fname[:-4]), 'img/trista/' + fname)
 
-
-                         
 ## This section contains information about how to build your project into 
 ## distribution files.
 init python:
@@ -312,7 +345,7 @@ init python:
     ## The name that's used for directories and archive files. For example, if
     ## this is 'mygame-1.0', the windows distribution will be in the
     ## directory 'mygame-1.0-win', in the 'mygame-1.0-win.zip' file.
-    build.directory_name = "Affection's Melody-v0.1.0"
+    build.directory_name = "Affection's Melody-v0.1.1"
     
     ## The name that's uses for executables - the program that users will run
     ## to start the game. For example, if this is 'mygame', then on Windows,
