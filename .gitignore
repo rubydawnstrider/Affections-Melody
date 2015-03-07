@@ -28,3 +28,10 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+errors.txt
+log.txt
+traceback.txt
+
+game/saves/
+tmp/
