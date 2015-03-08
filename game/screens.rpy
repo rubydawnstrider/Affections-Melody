@@ -188,10 +188,10 @@ screen nvl:
 # http://www.renpy.org/doc/html/screen_special.html#main-menu
 screen main_menu:
     tag menu # This ensures that any other menu screen is replaced.
-    add "gui/start_screen_ground.png" # Add a background image for the main menu.
+    add "gui/start/screen_ground.png" # Add a background image for the main menu.
 
     $ y=47 # To make things easier, we define a variable y and use it to set positions for our imagebuttons
-    imagebutton auto "gui/start_start_%s.png" xpos 480 ypos y focus_mask True action Start() hovered [ Play ("test_one", "sfx/click.wav") ] at main_eff1
+    imagebutton auto "gui/start/start_%s.png" xpos 480 ypos y focus_mask True action Start() hovered [ Play ("test_one", "sfx/click.wav") ] at main_eff1
     # Imagebutton documentation: http://www.renpy.org/doc/html/screens.html#imagebutton
     
     # auto - is used to automatically define the images used by this button. We could also use:
@@ -208,14 +208,14 @@ screen main_menu:
     # unhovered - action to run when the button loses focus. In this case we hide a tooltip.
     
     $ y+=126
-    imagebutton auto "gui/start_load_%s.png" xpos 480 ypos y focus_mask True  action ShowMenu('load') hovered [ Play ("test_two", "sfx/click.wav") ]  at main_eff2
+    imagebutton auto "gui/start/load_%s.png" xpos 480 ypos y focus_mask True  action ShowMenu('load') hovered [ Play ("test_two", "sfx/click.wav") ]  at main_eff2
     $ y+=126
-    imagebutton auto "gui/start_options_%s.png" xpos 480 ypos y focus_mask True action ShowMenu('preferences') hovered [ Play ("test_three", "sfx/click.wav") ] at main_eff3
+    imagebutton auto "gui/start/options_%s.png" xpos 480 ypos y focus_mask True action ShowMenu('preferences') hovered [ Play ("test_three", "sfx/click.wav") ] at main_eff3
     $ y+=126
 #    if persistent.extra_unlocked: # We only show the extras, if they have been unlocked. Because we are using a variable (y) for ypos, we don't need to worry about positioning the rest of the button(s).
 #        imagebutton auto "gui/start_extras_%s.png" xpos 480 ypos y focus_mask True action Start('extras') hovered [ Play ("test_four", "sfx/click.wav"), Show("gui_tooltip", my_picture="gui/tooltip_main_menu_extra.png", my_tt_xpos=46, my_tt_ypos=518) ] unhovered [Hide("gui_tooltip")] at main_eff4
 #        $ y+=71
-    imagebutton auto "gui/start_quit_%s.png" xpos 480 ypos y focus_mask True action Quit(confirm=False) hovered [ Play ("test_five", "sfx/click.wav") ] at main_eff5
+    imagebutton auto "gui/start/quit_%s.png" xpos 480 ypos y focus_mask True action Quit(confirm=False) hovered [ Play ("test_five", "sfx/click.wav") ] at main_eff5
 
 # The code below defines the ATL transform effects for each button on the main menu. These effects are triggered when the buttons are shown.
 # ATL transform properties: http://www.renpy.org/wiki/renpy/doc/reference/Animation_and_Transformation_Language#Transform_Properties
@@ -277,11 +277,12 @@ init -2:
 # navigation and background.
 # http://www.renpy.org/doc/html/screen_special.html#navigation
 screen navigation_options:
-    imagebutton auto "gui/nav_main_%s.png" xpos 617 ypos 21 focus_mask True action MainMenu() hovered [ Play ("test_one", "sfx/click.wav") ] at nav_eff
-    imagebutton auto "gui/nav_save_%s.png" xpos 617 ypos 85 focus_mask True action ShowMenu('save') hovered [ Play ("test_two", "sfx/click.wav") ] at nav_eff
-    imagebutton auto "gui/nav_load_%s.png" xpos 617 ypos 149 focus_mask True action ShowMenu('load') hovered [ Play ("test_three", "sfx/click.wav") ] at nav_eff
-    imagebutton auto "gui/nav_return_%s.png" xpos 617 ypos 212 focus_mask True action Return() hovered [ Play ("test_four", "sfx/click.wav") ] at nav_eff
-    imagebutton auto "gui/nav_quit_%s.png" xpos 617 ypos 276 focus_mask True action Quit() hovered [ Play ("test_five", "sfx/click.wav") ] at nav_eff
+    imagebutton auto "gui/nav/main_%s.png" xpos 617 ypos 21 focus_mask True action MainMenu() hovered [ Play ("test_one", "sfx/click.wav") ] at nav_eff
+    imagebutton auto "gui/nav/options_%s.png" xpos 617 ypos 85 focus_mask True action ShowMenu('preferences') hovered [ Play ("test_two", "sfx/click.wav") ] at nav_eff
+    imagebutton auto "gui/nav/save_%s.png" xpos 617 ypos 149 focus_mask True action ShowMenu('save') hovered [ Play ("test_two", "sfx/click.wav") ] at nav_eff
+    imagebutton auto "gui/nav/load_%s.png" xpos 617 ypos 213 focus_mask True action ShowMenu('load') hovered [ Play ("test_three", "sfx/click.wav") ] at nav_eff
+    imagebutton auto "gui/nav/return_%s.png" xpos 617 ypos 277 focus_mask True action Return() hovered [ Play ("test_four", "sfx/click.wav") ] at nav_eff
+    imagebutton auto "gui/nav/quit_%s.png" xpos 617 ypos 341 focus_mask True action Quit() hovered [ Play ("test_five", "sfx/click.wav") ] at nav_eff
 # The code below defines the ATL transform effects for the buttons on the game menu. These effects are triggered when we hover the mouse over them (hover and selected_hover).
 # Effects that are triggered by idle and selected_idle events (when we stop hovering the mouse over them) ensure that the buttons are moved back to the initial state.
 init -2:
@@ -289,13 +290,12 @@ init -2:
         on idle:
             easein 0.3 xpos 617
         on selected_idle:
-            easein 0.3 xpos 617
+            easein 0.3 xpos 647
         on hover:
             easein 0.2 xpos 637
             easein 0.25 xpos 587
         on selected_hover:
-            easein 0.2 xpos 637
-            easein 0.25 xpos 587
+            easein 0.2 xpos 647
 
 screen navigation:
 
@@ -322,6 +322,34 @@ screen navigation:
 init -2 python:
     style.gm_nav_button.size_group = "gm_nav"
     
+##############################################################################
+# Save Load Navigation
+#
+# Screen that's included in other screens to display the game menu
+# navigation and background.
+# http://www.renpy.org/doc/html/screen_special.html#navigation
+screen navigation_saveload:
+    imagebutton auto "gui/saveload/main_%s.png" xpos 617 ypos 21 focus_mask True action MainMenu() hovered [ Play ("test_one", "sfx/click.wav") ] at nav_eff
+    imagebutton auto "gui/saveload/options_%s.png" xpos 617 ypos 85 focus_mask True action ShowMenu('preferences') hovered [ Play ("test_two", "sfx/click.wav") ] at nav_eff
+    imagebutton auto "gui/saveload/save_%s.png" xpos 617 ypos 149 focus_mask True action ShowMenu('save') hovered [ Play ("test_two", "sfx/click.wav") ] at nav_eff
+    imagebutton auto "gui/saveload/load_%s.png" xpos 617 ypos 213 focus_mask True action ShowMenu('load') hovered [ Play ("test_three", "sfx/click.wav") ] at nav_eff
+    imagebutton auto "gui/saveload/return_%s.png" xpos 617 ypos 277 focus_mask True action Return() hovered [ Play ("test_four", "sfx/click.wav") ] at nav_eff
+    imagebutton auto "gui/saveload/quit_%s.png" xpos 617 ypos 341 focus_mask True action Quit() hovered [ Play ("test_five", "sfx/click.wav") ] at nav_eff
+
+##############################################################################
+# Save, Load Slot
+#
+init -2 python: #we initialize x and y, so the load_save_slot screen below works at startup
+    x=0
+    y=0
+screen load_save_slot:
+    $ file_text = "% s\n  %s" % (FileTime(number, empty="Empty Slot."), FileSaveName(number))
+    $x1=x+20
+    $y1=y+50
+    add FileScreenshot(number) xpos x1 ypos y1
+    $x2=x+20
+    $y2=y+20
+    text file_text xpos x2 ypos y2 size 20 color "#cc00ff"
 
 ##############################################################################
 # Save, Load
@@ -335,90 +363,43 @@ init -2 python:
 # from simple load and save screens.
     
 screen file_picker:
+    use navigation_saveload # We include the navigation/game menu screen
+    # Buttons for selecting the save/load page:
+    imagebutton auto "gui/saveload/page1_%s.png" xpos 27 ypos 21 focus_mask True action FilePage(1) hover_sound "sfx/click.wav"
+    imagebutton auto "gui/saveload/page2_%s.png" xpos 116 ypos 21 focus_mask True action FilePage(2) hover_sound "sfx/click.wav"
+    imagebutton auto "gui/saveload/page3_%s.png" xpos 205 ypos 21 focus_mask True action FilePage(3) hover_sound "sfx/click.wav"
+    imagebutton auto "gui/saveload/page4_%s.png" xpos 304 ypos 21 focus_mask True action FilePage(3) hover_sound "sfx/click.wav"
+    imagebutton auto "gui/saveload/page5_%s.png" xpos 394 ypos 21 focus_mask True action FilePage(3) hover_sound "sfx/click.wav"
+    imagebutton auto "gui/saveload/page6_%s.png" xpos 484 ypos 21 focus_mask True action FilePage(3) hover_sound "sfx/click.wav"
 
-    frame:
-        style "file_picker_frame"
+    imagebutton auto "gui/saveload/fileslot_top_row_%s.png" xpos 24 ypos 86 focus_mask True action FileAction(0)
+    use load_save_slot(number=0, x=24, y=86) # This calls the load_save_slot screen defined above. We pass variable i as the slot number and x, y coordinates.
 
-        has vbox
+    imagebutton auto "gui/saveload/fileslot_top_row_%s.png" xpos 302 ypos 86 focus_mask True action FileAction(1)
+    use load_save_slot(number=1, x=303, y=86) # This calls the load_save_slot screen defined above. We pass variable i as the slot number and x, y coordinates.
 
-        # The buttons at the top allow the user to pick a
-        # page of files.
-        hbox:
-            style_group "file_picker_nav"
-            
-            textbutton _("Previous"):
-                action FilePagePrevious()
+    imagebutton auto "gui/saveload/fileslot_bottom_row_%s.png" xpos 24 ypos 334 focus_mask True action FileAction(2)
+    use load_save_slot(number=2, x=24, y=334) # This calls the load_save_slot screen defined above. We pass variable i as the slot number and x, y coordinates.
 
-            textbutton _("Auto"):
-                action FilePage("auto")
+    imagebutton auto "gui/saveload/fileslot_bottom_row_%s.png" xpos 302 ypos 334 focus_mask True action FileAction(3)
+    use load_save_slot(number=3, x=303, y=334) # This calls the load_save_slot screen defined above. We pass variable i as the slot number and x, y coordinates.
 
-            textbutton _("Quick"):
-                action FilePage("quick")
-
-            for i in range(1, 9):
-                textbutton str(i):
-                    action FilePage(i)
-                    
-            textbutton _("Next"):
-                action FilePageNext()
-
-        $ columns = 2
-        $ rows = 5
-                
-        # Display a grid of file slots.
-        grid columns rows:
-            transpose True
-            xfill True
-            style_group "file_picker"
-            
-            # Display ten file slots, numbered 1 - 10.
-            for i in range(1, columns * rows + 1):
-
-                # Each file slot is a button.
-                button:
-                    action FileAction(i)
-                    xfill True
-
-                    has hbox
-
-                    # Add the screenshot.
-                    add FileScreenshot(i)
-                    
-                    $ file_name = FileSlotName(i, columns * rows)
-                    $ file_time = FileTime(i, empty=_("Empty Slot."))
-                    $ save_name = FileSaveName(i)
-
-                    text "[file_name]. [file_time!t]\n[save_name!t]"
-
-                    key "save_delete" action FileDelete(i)
-                    
-                    
+##############################################################################
+# Save
+#
 screen save:
+    tag menu # This ensures that any other menu screen is replaced.
+    add "gui/saveload/screen_ground.png" # We add the file picker background image. This image is the same for save and load screens.
+    use file_picker # We include the file_picker screen
 
-    # This ensures that any other menu screen is replaced.
-    tag menu
-
-    use navigation
-    use file_picker
-
+##############################################################################
+# Load
+#
 screen load:
+    tag menu # This ensures that any other menu screen is replaced.
+    add "gui/saveload/screen_ground.png" # We add the file picker background image. This image is the same for save and load screens.
+    use file_picker # We include the file_picker screen
 
-    # This ensures that any other menu screen is replaced.
-    tag menu
-
-    use navigation
-    use file_picker
-
-init -2 python:
-    style.file_picker_frame = Style(style.menu_frame)
-
-    style.file_picker_nav_button = Style(style.small_button)
-    style.file_picker_nav_button_text = Style(style.small_button_text)
-
-    style.file_picker_button = Style(style.large_button)
-    style.file_picker_text = Style(style.large_button_text)
-
-    
 
 ##############################################################################
 # Preferences
@@ -427,19 +408,19 @@ init -2 python:
 # http://www.renpy.org/doc/html/screen_special.html#prefereces
 screen preferences:
     tag menu # This ensures that any other menu screen is replaced.
-    add "gui/options_screen_ground.png" # We add the image that is shown in the background of the preferences screen.
+    add "gui/options/screen_ground.png" # We add the image that is shown in the background of the preferences screen.
     # Display windowed/full screen:
-    imagebutton auto "gui/options_windowed_%s.png" xpos 30 ypos 64 focus_mask True action Preference('display', 'window') at config_eff hovered [ Play ("test_one", "sfx/click.wav") ]
-    imagebutton auto "gui/options_full_screen_%s.png" xpos 30 ypos 111 focus_mask True action Preference('display', 'fullscreen') at config_eff hovered [ Play ("test_two", "sfx/click.wav") ]
+    imagebutton auto "gui/options/windowed_%s.png" xpos 30 ypos 64 focus_mask True action Preference('display', 'window') at config_eff hovered [ Play ("test_one", "sfx/click.wav") ]
+    imagebutton auto "gui/options/full_screen_%s.png" xpos 30 ypos 111 focus_mask True action Preference('display', 'fullscreen') at config_eff hovered [ Play ("test_two", "sfx/click.wav") ]
     # Transitions on/off:
-    imagebutton auto "gui/options_show_all_%s.png" xpos 30 ypos 225 focus_mask True action Preference('transitions', 'all') at config_eff hovered [ Play ("test_four", "sfx/click.wav") ] 
-    imagebutton auto "gui/options_none_%s.png" xpos 30 ypos 272 focus_mask True action Preference('transitions', 'none') at config_eff hovered [ Play ("test_four", "sfx/click.wav") ]
+    imagebutton auto "gui/options/show_all_%s.png" xpos 30 ypos 225 focus_mask True action Preference('transitions', 'all') at config_eff hovered [ Play ("test_four", "sfx/click.wav") ] 
+    imagebutton auto "gui/options/none_%s.png" xpos 30 ypos 272 focus_mask True action Preference('transitions', 'none') at config_eff hovered [ Play ("test_four", "sfx/click.wav") ]
     # Skip all/seen text
-    imagebutton auto "gui/options_read_messages_%s.png" xpos 318 ypos 64 focus_mask True action Preference('skip', 'seen') at config_eff hovered [ Play ("test_one", "sfx/click.wav") ]
-    imagebutton auto "gui/options_all_messages_%s.png" xpos 318 ypos 111 focus_mask True action Preference('skip', 'all') at config_eff hovered [ Play ("test_two", "sfx/click.wav") ]
+    imagebutton auto "gui/options/read_messages_%s.png" xpos 318 ypos 64 focus_mask True action Preference('skip', 'seen') at config_eff hovered [ Play ("test_one", "sfx/click.wav") ]
+    imagebutton auto "gui/options/all_messages_%s.png" xpos 318 ypos 111 focus_mask True action Preference('skip', 'all') at config_eff hovered [ Play ("test_two", "sfx/click.wav") ]
     # Stop/continue skipping after choices
-    imagebutton auto "gui/options_keep_skipping_%s.png" xpos 318 ypos 225 focus_mask True action Preference('after choices', 'skip') at config_eff hovered [ Play ("test_two", "sfx/click.wav") ]
-    imagebutton auto "gui/options_stop_skipping_%s.png" xpos 318 ypos 272 focus_mask True action Preference('after choices', 'stop') at config_eff hovered [ Play ("test_one", "sfx/click.wav") ] 
+    imagebutton auto "gui/options/keep_skipping_%s.png" xpos 318 ypos 225 focus_mask True action Preference('after choices', 'skip') at config_eff hovered [ Play ("test_two", "sfx/click.wav") ]
+    imagebutton auto "gui/options/stop_skipping_%s.png" xpos 318 ypos 272 focus_mask True action Preference('after choices', 'stop') at config_eff hovered [ Play ("test_one", "sfx/click.wav") ] 
     # Button to begin skipping. Only active/visible if the game is started. Image config_begin_skipping_insensitive.png is used when the button is not active.
     ## todo: need begin skipping button
     #imagebutton auto "gui/config_begin_skipping_%s.png" xpos 420 ypos 117 focus_mask True action Preference('begin skipping') hovered [ Play ("test_one", "sfx/click.wav") ]
@@ -463,9 +444,9 @@ init -2 python:
     # Aleema's Customizing Menus tutorial: http://lemmasoft.renai.us/forums/viewtopic.php?f=51&t=9812
     # Bar style properties documentation: http://www.renpy.org/doc/html/style.html#bar-style-properties
     style.pref_frame.background = None
-    style.pref_slider.left_bar = "gui/options_bar_full.png"
-    style.pref_slider.right_bar = "gui/options_bar_empty.png"
-    style.pref_slider.hover_left_bar = "gui/options_bar_hover.png"
+    style.pref_slider.left_bar = "gui/options/bar_full.png"
+    style.pref_slider.right_bar = "gui/options/bar_empty.png"
+    style.pref_slider.hover_left_bar = "gui/options/bar_hover.png"
     style.pref_slider.thumb = None
     style.pref_slider.xmaximum = 260 # width of bar + 5
     style.pref_slider.ymaximum = 48  # height of bar
@@ -496,22 +477,22 @@ screen yesno_prompt:
     on "show" action Play("sound", "sfx/alert.wav")
     modal True # A modal screen prevents the user from interacting with displayables below it, except for the default keymap.
     
-    add "gui/yesno_ground.png" #"gui/yesno_menu_demo.png"
-    imagebutton auto "gui/yesno_yes_%s.png" xpos 180 ypos 393 action yes_action hover_sound "sfx/click.wav"
-    imagebutton auto "gui/yesno_no_%s.png" xpos 400 ypos 393 action no_action hover_sound "sfx/click.wav"
+    add "gui/yesno/ground.png" #"gui/yesno/menu_demo.png"
+    imagebutton auto "gui/yesno/yes_%s.png" xpos 180 ypos 393 action yes_action hover_sound "sfx/click.wav"
+    imagebutton auto "gui/yesno/no_%s.png" xpos 400 ypos 393 action no_action hover_sound "sfx/click.wav"
 
     if message == layout.ARE_YOU_SURE:
-        add "gui/yesno_are_you_sure.png"
+        add "gui/yesno/are_you_sure.png"
     elif message == layout.DELETE_SAVE:
-        add "gui/yesno_delete_save.png"
+        add "gui/yesno/delete_save.png"
     elif message == layout.OVERWRITE_SAVE:
-        add "gui/yesno_overwrite_save.png"
+        add "gui/yesno/overwrite_save.png"
     elif message == layout.LOADING:
-        add "gui/yesno_loading.png"
+        add "gui/yesno/loading.png"
     elif message == layout.QUIT:
-        add "gui/yesno_quit.png"
+        add "gui/yesno/quit.png"
     elif message == layout.MAIN_MENU:
-        add "gui/yesno_main_menu.png"
+        add "gui/yesno/main_menu.png"
 
 
 ##############################################################################

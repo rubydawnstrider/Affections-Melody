@@ -30,6 +30,9 @@ init -1 python hide:
     config.name = "Affection's Melody"
     config.version = "v0.2.0"
 
+    config.thumbnail_height = 168
+    config.thumbnail_width = 224
+
     #########################################
     # Themes
     
