@@ -28,7 +28,8 @@ init -1 python hide:
     # These control the name and version of the game, that are reported
     # with tracebacks and other debugging logs.
     config.name = "Affection's Melody"
-    config.version = "v0.2.0"
+    config.version = "v0.5.0"
+    # this needs to be updated if you make a new distribution so it keeps going up :p -rw
 
     config.thumbnail_height = 168
     config.thumbnail_width = 224
@@ -182,7 +183,7 @@ init -1 python hide:
 
     ## Set this to False if the game does not have voicing.
 
-    config.has_voice = True
+    config.has_voice = False
 
     ## Sounds that are used when button and imagemaps are clicked.
 
@@ -253,7 +254,7 @@ init -1 python hide:
     #########################################
     ## This is the name of the directory where the game's data is
     ## stored. (It needs to be set early, before any other init code
-    ## is run, so the persisten information can be found by the init code.)
+    ## is run, so the persistent information can be found by the init code.)
 python early:
     config.save_directory = "Affection's Melody-1420592277"
 
@@ -348,7 +349,7 @@ init python:
     ## The name that's used for directories and archive files. For example, if
     ## this is 'mygame-1.0', the windows distribution will be in the
     ## directory 'mygame-1.0-win', in the 'mygame-1.0-win.zip' file.
-    build.directory_name = "Affection'sMelody-v0.2.0"
+    build.directory_name = "Affection'sMelody-" + config.version
     
     ## The name that's uses for executables - the program that users will run
     ## to start the game. For example, if this is 'mygame', then on Windows,
