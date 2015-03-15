@@ -51,4 +51,4 @@ label start:
     jump final_start
     
     # Also, I think I'll try to remember to sign more explain-y comments with "-rw" for "ruby walker"
-    #  So you can see that it's stuff I left vs stuff you leave. You could sign with -LG if you want... *This is a test comment-lg
+    #  So you can see that it's stuff I left vs stuff you leave. You could sign with -LG if you want...
