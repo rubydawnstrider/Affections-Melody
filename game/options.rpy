@@ -285,7 +285,7 @@ init python:
     # load bg images
     for fname in os.listdir(config.gamedir + '\\img\\bg'):
         if fname.endswith('.png'):
-            renpy.image(fname[:-4], 'img/bg/' + fname)    
+            renpy.image(fname[:-4], 'img/bg/' + fname)
 
     #load andrea sprites
     for fname in os.listdir(config.gamedir + '\\img\\andrea'):
