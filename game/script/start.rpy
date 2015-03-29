@@ -30,6 +30,8 @@ label final_start:
     # Renpy won't be able to tell which one you want.
     #  -rw
     
+    jump day6_label
+label end_day6:
     jump day1_label
 label end_day1:
 # Renpy was being difficult and didn't like returning here on it's own.
