@@ -180,11 +180,11 @@ label day5_label:
         show selene casual3_smile
     if menuChoice == 2:
         $ seleneAffinity -= 5
-        ser "Ramen? You don’t strike me as a Ramen person."
+        "Ramen? You don’t strike me as a Ramen person.":
         show selne casual3_normal
-        sel "What ramen people have a certain look?"
+        sel "What ramen people have a certain look?":
         ser "No. it’s just when I think of someone who likes ramen I’d think of someone more like Armane or something... Someone who needs something quick because they are always on the move..."
-        sel "Oh okay..."
+        sel "Oh okay...":
     if menuChoice == 3:
         ser "Ramen?"
         sel "Have you ever had it?"
