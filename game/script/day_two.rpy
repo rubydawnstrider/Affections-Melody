@@ -41,6 +41,7 @@ label day2_label:
     sel "So you actually came, huh?"
     show serena normal at center with moveinleft
     menu:
+        sel "{cps=0}So you actually came, huh?{/cps}"
         "Do you ever just say hello? And yes I did.":
             $ menuChoice = 1
         "I did.":

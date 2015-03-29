@@ -148,7 +148,7 @@ label day5_label:
     
     scene sidewalk_afternoon with fade
     show serena casual_smile at center
-    show selene casual3_smile
+    show selene casual3_smile at right
     ser "Wow! The shopping district is amazing I didn’t know you could fit so many different kinds of shops in one strip."
     sel "You didn’t have shopping districts like this?"
     ser "We had one in Silver Hills that was going out of business since a new one opened that was only a a half hour train ride away. But my parents didn't like me going out by myself so i never really went to either since I was a kid."
@@ -158,11 +158,11 @@ label day5_label:
     ser "Sure what type do you want?"
     menu:
         sel "Well I like this little ramen shop across the way. Want to go?"
-        ser "Sure Sounds fun!"
+        "Sure Sounds fun!":
             $ menuChoice = 1
-        "Ramen? You don’t strike me as a Ramen person"
+        "Ramen? You don’t strike me as a Ramen person":
             $ menuChoice = 2
-        "Ramen?"
+        "Ramen?":
             $ menuChoice = 3
     if menuChoice == 1:
         $ seleneAffinity += 5
@@ -171,6 +171,7 @@ label day5_label:
         serThought "She’s so cute when she’s happy."
         sel "This place is great! I really love their pork Ramen but everything is good there!"
         ser "I’m sure it is. I can’t wait to try it!"
+        show selene casual3_smile
         sel "Really? Why?"
         ser "Well, because seeing you talk about it makes you very happy so it must be really good if it makes you this happy."
         sel "Actually the reason I love the place is because when I was little my parents took me their whenever I did well in school or something. So it’s always had good memories for me."
@@ -202,13 +203,17 @@ label day5_label:
     show selene casual3_smile
     show serena casual_smile
     ser "well, come on the ramen wont eat itself!"
-    scene restaurant with fade
+    
+    scene resturant with fade
+    show selene casual3_smile at center
+    show serena casual_smile at right
     sel "well, what do you think?"
     ser "It's super yummy."
     sel "Good I’m glad."
     ser "Wow is that really the time?"
     sel "Yeah. Come on we have to get back to the station."
     ser "Mhmm."
+    
     scene roomnight with fade
     show serena casual_close_eyes
     serThought "Wow this afternoon was great. Too bad Selene gets off a stop before me at cherry ville stop. Oh well. I can’t wait to do this again. Selene is really great when she wants to be. I can’t wait till school Monday. Then I’ll see her again."
